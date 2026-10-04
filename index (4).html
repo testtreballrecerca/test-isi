@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="ca">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Índex de Salut Intestinal (ISI)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:wght@600;700&family=Nunito+Sans:wght@400;600;700&display=swap" rel="stylesheet">
+<style>
+:root{--ink:#0d2540;--navy:#10325a;--blue:#2f7fc1;--sky:#d9ecfa;--mist:#f0f8fd;--line:#c4dcee;--mute:#4d6a85;--ok:#1f8a70;box-sizing:border-box}
+*,*:before,*:after{box-sizing:inherit}
+body{margin:0;font:17px/1.6 "Nunito Sans",system-ui,sans-serif;color:var(--ink);background:linear-gradient(180deg,var(--sky),var(--mist) 420px) fixed}
+h1,h2,h3{font-family:Fraunces,Georgia,serif;line-height:1.2;margin:0 0 .5em}
+header{background:var(--navy);color:#fff;padding:14px 20px;display:flex;align-items:center;gap:12px}
+header svg{width:34px;height:34px;flex:none}
+header b{font-family:Fraunces,Georgia,serif;font-size:1.15rem}
+.steps{display:flex;gap:6px;max-width:760px;margin:18px auto 0;padding:0 16px}
+.steps span{flex:1;height:8px;border-radius:4px;background:var(--line)}
+.steps span.on{background:var(--blue)}
+main{max-width:760px;margin:0 auto;padding:16px 16px 60px}
+.card{background:#fff;border:1px solid var(--line);border-radius:18px;padding:26px;margin-bottom:18px}
+.hero{background:var(--navy);color:#fff;border:0}
+.hero h1{font-size:clamp(1.7rem,6vw,2.4rem)}
+.hero svg{width:100%;max-height:150px;margin-top:10px}
+.note{background:var(--mist);border-left:5px solid var(--blue);padding:12px 16px;border-radius:0 10px 10px 0;margin:16px 0}
+.btn{display:inline-block;background:var(--blue);color:#fff;border:0;border-radius:12px;padding:14px 26px;font:700 1rem "Nunito Sans",sans-serif;cursor:pointer}
+.btn:hover{background:#256aa3}.btn.alt{background:#fff;color:var(--navy);border:2px solid var(--line)}
+.btn:focus-visible,input:focus-visible+span,select:focus-visible,input[type=number]:focus-visible{outline:3px solid var(--navy);outline-offset:2px}
+.nav{display:flex;gap:12px;justify-content:space-between;flex-wrap:wrap;margin-top:8px}
+fieldset{border:0;padding:0;margin:0 0 22px;min-width:0}
+legend{font-weight:700;padding:0;margin-bottom:8px}
+.dim{display:flex;justify-content:space-between;align-items:baseline;gap:10px;border-bottom:2px solid var(--sky);margin:30px 0 14px;padding-bottom:6px}
+.dim h2{margin:0;font-size:1.35rem}.dim small{color:var(--mute)}
+.opts{display:grid;grid-template-columns:repeat(var(--n,3),1fr);gap:8px}
+.opts label{cursor:pointer;display:block}
+@media(max-width:640px){.opts{grid-template-columns:1fr}}
+.opts input{position:absolute;opacity:0;width:1px;height:1px}
+.opts span{display:flex;align-items:center;justify-content:center;height:100%;min-height:52px;text-align:center;padding:8px 10px;line-height:1.3;border:2px solid var(--line);border-radius:12px;background:#fff;font-size:.95rem}
+.opts input:checked+span{background:var(--navy);border-color:var(--navy);color:#fff}
+.opts input:focus-visible+span{outline:3px solid var(--blue);outline-offset:2px}
+.miss legend{color:#b3261e}.miss .opts span{border-color:#e6a5a0}
+.err{color:#b3261e;font-weight:700;margin:10px 0;min-height:1.4em}
+input[type=number],select{font:inherit;padding:10px 12px;border:2px solid var(--line);border-radius:12px;width:100%;max-width:260px;background:#fff}
+.chk{display:grid;grid-template-columns:repeat(auto-fit,minmax(240px,1fr));gap:6px 14px;margin-top:6px}
+.chk label{display:flex;gap:8px;align-items:flex-start}.chk input{margin-top:6px}
+.score{display:flex;align-items:center;gap:22px;flex-wrap:wrap}
+.ring{width:150px;height:150px;border-radius:50%;display:grid;place-items:center;background:conic-gradient(var(--blue) calc(var(--p)*1%),var(--sky) 0)}
+.ring div{width:112px;height:112px;border-radius:50%;background:#fff;display:grid;place-items:center;text-align:center;line-height:1.1}
+.ring b{font:700 2.4rem Fraunces,serif;color:var(--navy)}.ring small{color:var(--mute)}
+.bar{margin:12px 0}.bar div:first-child{display:flex;justify-content:space-between;font-weight:600;gap:8px}
+.track{height:12px;background:var(--sky);border-radius:6px;overflow:hidden;margin-top:4px}.track i{display:block;height:100%;background:var(--blue);border-radius:6px}
+.rec{display:flex;gap:14px;padding:16px 0;border-top:1px solid var(--line)}
+.rec svg{width:44px;height:44px;flex:none}.rec h3{font-size:1.1rem;margin-bottom:.2em}.rec p{margin:0}
+.profile{display:flex;gap:16px;align-items:center;background:var(--mist);border:2px solid var(--line);border-radius:16px;padding:16px;margin-top:22px}
+.profile svg{width:72px;height:72px;flex:none}.profile h2{font-size:1.3rem;margin:0 0 .15em}.profile p{margin:0}
+.profile small{color:var(--mute)}
+.hidden{display:none}
+footer{text-align:center;color:var(--mute);font-size:.85rem;padding:0 16px 30px}
+@media(max-width:520px){.card{padding:18px}.dim{flex-direction:column;gap:0}}
+@media(prefers-reduced-motion:no-preference){.screen{animation:in .35s}@keyframes in{from{opacity:0}to{opacity:1}}}
+</style>
+</head>
+<body>
+<header>
+<svg viewBox="0 0 40 40" aria-hidden="true"><circle cx="20" cy="20" r="19" fill="#2f7fc1"/><path d="M9 14c6-5 16 1 22-2M9 20c6-5 16 1 22-2M9 26c6-5 16 1 22-2" stroke="#fff" stroke-width="3" fill="none" stroke-linecap="round"/></svg>
+<b>Índex de Salut Intestinal</b>
+</header>
+<div class="steps" id="steps" aria-hidden="true"><span></span><span></span><span></span><span></span></div>
+<main>
+
+<section class="screen" id="s1">
+<div class="card hero">
+<h1>Com cuides el teu intestí?</h1>
+<p>Respon un qüestionari breu i descobreix la teva puntuació a l'Índex de Salut Intestinal (ISI), amb tres recomanacions pensades per a tu.</p>
+<svg viewBox="0 0 600 145" role="img" aria-label="Il·lustració d'un intestí amb bacteris"><path id="gut" d="M60 22H500a25 25 0 010 50H100a25 25 0 000 50H540" stroke="#7fbbe6" stroke-width="22" fill="none" stroke-linecap="round"/><path d="M60 22H500a25 25 0 010 50H100a25 25 0 000 50H540" stroke="#d9ecfa" stroke-width="5" fill="none" stroke-linecap="round" stroke-dasharray="2 12"/><g fill="#fff" opacity=".9"><rect x="140" y="14" width="24" height="10" rx="5" transform="rotate(-18 152 19)"/><rect x="330" y="68" width="24" height="10" rx="5" transform="rotate(14 342 73)"/><rect x="250" y="116" width="24" height="10" rx="5" transform="rotate(-12 262 121)"/><rect x="430" y="17" width="24" height="10" rx="5" transform="rotate(20 442 22)"/></g><g fill="#7fbbe6"><circle cx="210" cy="140" r="5"/><circle cx="380" cy="5" r="4"/><circle cx="560" cy="60" r="5"/></g></svg>
+</div>
+<div class="card">
+<h2>Què és l'ISI?</h2>
+<p>L'Índex de Salut Intestinal és una eina experimental i divulgativa que dona una puntuació de 0 a 100. Combina cinc aspectes relacionats amb la salut intestinal: el benestar digestiu, l'alimentació, l'estil de vida, alguns factors externs i la percepció global que en tens.</p>
+<p>Es basa en la definició de salut intestinal proposada per un consens internacional de l'<i>International Scientific Association for Probiotics and Prebiotics</i> (ISAPP): un estat de funcionament gastrointestinal normal, sense malaltia activa ni símptomes que afectin la qualitat de vida.</p>
+<h2>Per què el fas?</h2>
+<p>Aquest test forma part de la part pràctica d'un Treball de Recerca de Batxillerat sobre la relació entre les malalties autoimmunes i la salut intestinal. Les respostes de totes les persones participants s'analitzaran de manera conjunta.</p>
+<div class="note"><b>Important.</b> L'ISI no és una eina de diagnòstic i no substitueix la valoració d'un metge o d'una metgessa. Si tens símptomes que et preocupen, consulta un professional sanitari.</div>
+<div class="note"><b>Test anònim.</b> No et demanem el nom, el correu ni cap dada que et pugui identificar. Només guardem les respostes, l'edat, el sexe i les dades sobre malalties autoimmunes. La participació és voluntària i triga uns 5 minuts.</div>
+<div class="nav"><span></span><button class="btn" id="go1">Comença el test</button></div>
+</div>
+</section>
+
+<section class="screen hidden" id="s2">
+<div class="card">
+<h1>Qüestionari</h1>
+<p>Respon les 20 preguntes escollint una sola opció en cadascuna.</p>
+<div id="qs"></div>
+<div class="err" id="e2" role="alert"></div>
+<div class="nav"><button class="btn alt" id="b2">Enrere</button><button class="btn" id="n2">Continua</button></div>
+</div>
+</section>
+
+<section class="screen hidden" id="s3">
+<div class="card">
+<h1>Algunes dades més</h1>
+<p>Aquestes dades només s'utilitzen per a l'anàlisi estadística del Treball de Recerca i no permeten identificar ningú.</p>
+<fieldset><legend><label for="age">Edat</label></legend><input type="number" id="age" min="10" max="110" inputmode="numeric"></fieldset>
+<fieldset id="fsex"><legend>Sexe</legend><div class="opts">
+<label><input type="radio" name="sex" value="Masculí"><span>Masculí</span></label>
+<label><input type="radio" name="sex" value="Femení"><span>Femení</span></label>
+<label><input type="radio" name="sex" value="Prefereixo no dir-ho"><span>Prefereixo no dir-ho</span></label></div></fieldset>
+<fieldset id="fdis"><legend>Tens una malaltia autoimmune diagnosticada?</legend><div class="opts" style="--n:2;max-width:340px">
+<label><input type="radio" name="dis" value="Sí"><span>Sí</span></label>
+<label><input type="radio" name="dis" value="No"><span>No</span></label></div></fieldset>
+<fieldset id="ftype" class="hidden"><legend>Quina? Pots marcar més d'una opció.</legend><div class="chk" id="types"></div></fieldset>
+<div class="err" id="e3" role="alert"></div>
+<div class="nav"><button class="btn alt" id="b3">Enrere</button><button class="btn" id="n3">Veure el resultat</button></div>
+</div>
+</section>
+
+<section class="screen hidden" id="s4">
+<div class="card">
+<h1>El teu resultat</h1>
+<div class="score"><div class="ring" id="ring"><div><span><b id="tot">0</b><br><small>sobre 100</small></span></div></div>
+<p style="flex:1 1 240px">Aquesta és la teva puntuació a l'ISI. Més amunt és millor, però recorda que és una referència divulgativa, no un diagnòstic.</p></div>
+<div class="profile" id="profile"></div>
+<h2 style="margin-top:28px">Puntuació per apartats</h2>
+<div id="bars"></div>
+</div>
+<div class="card">
+<h2>Tres recomanacions per a tu</h2>
+<p>Hem triat els tres apartats on hi ha més marge de millora i hem adaptat el consell a les teves respostes.</p>
+<div id="recs"></div>
+<div class="note">Aquestes recomanacions són orientatives i generals. Si tens símptomes digestius persistents o una malaltia diagnosticada, parla-ho amb el teu equip sanitari abans de canviar l'alimentació o els hàbits.</div>
+<p><b>Gràcies per participar!</b> La teva resposta ajuda a fer avançar aquest Treball de Recerca.</p>
+</div>
+</section>
+</main>
+<footer>Índex de Salut Intestinal (ISI) · Treball de Recerca de Batxillerat · Eina divulgativa, no diagnòstica</footer>
+
+<script>
+// Adreça de l'aplicació web de Google Apps Script (vegeu les instruccions)
+const ENDPOINT = "https://script.google.com/macros/s/AKfycbxPLDy8-A4o2IA9Hq7aEowBCSUw2MXmq8SI2tbXiSUcMKOc6q_xYI1J94wddYtklTws/exec";
+
+const DIM = [["Benestar digestiu",30],["Alimentació",30],["Estil de vida",20],["Factors externs",10],["Percepció global",10]];
+const F=["Mai","Rarament","Algunes vegades","Sovint","Molt sovint"], P6=[6,5,3,1,0], P5=[5,4,3,1,0];
+const Q = [
+[0,"Amb quina freqüència has experimentat inflor abdominal o sensació de panxa inflada durant les últimes setmanes?",F,P6],
+[0,"Durant les últimes setmanes, has experimentat problemes digestius com diarrea, restrenyiment o canvis importants en el teu ritme intestinal?",F,P6],
+[0,"Amb quina freqüència has experimentat molèsties o dolor abdominal durant les últimes setmanes?",F,P6],
+[0,"Com valores la teva digestió habitual?",["Molt bona","Bona","Normal","Dolenta","Molt dolenta"],P6],
+[0,"Fins a quin punt els problemes digestius afecten el teu benestar o les teves activitats quotidianes?",["Gens","Molt poc","Moderadament","Bastant","Molt"],P6],
+[1,"Amb quina freqüència menges fruita?",["Dues o més vegades al dia","Una vegada al dia","4–6 dies per setmana","1–3 dies per setmana","Gairebé mai"],P5],
+[1,"Amb quina freqüència menges verdures o hortalisses?",["Dues o més vegades al dia","Una vegada al dia","4–6 dies per setmana","1–3 dies per setmana","Gairebé mai"],P5],
+[1,"Amb quina freqüència menges llegums (llenties, cigrons, mongetes, etc.)?",["4 o més vegades per setmana","2-3 vegades","Una vegada","Menys d'una vegada","Mai"],P5],
+[1,"Amb quina freqüència consumeixes cereals integrals, com civada, pa integral, arròs integral o pasta integral?",["Diàriament","4-6 dies per setmana","2-3 dies per setmana","1 dia a la setmana","Mai"],P5],
+[1,"Amb quina freqüència consumeixes fruits secs o llavors?",["Diàriament","4-6 dies per setmana","2-3 dies per setmana","1 dia a la setmana","Mai"],P5],
+[1,"Com valores la varietat d'aliments vegetals que consumeixes habitualment?",["Molt variada","Bastant variada","Moderadament variada","Poc variada","Gens variada"],P5],
+[2,"Quants dies a la setmana fas activitat física durant almenys 30 minuts?",["6–7 dies","4–5 dies","2–3 dies","1 dia","Cap dia"],P5],
+[2,"Com valores la qualitat del teu son habitual?",["Molt bona","Bona","Acceptable","Dolenta","Molt dolenta"],P5],
+[2,"Com valores el teu nivell d'estrès habitual?",["Molt baix","Baix","Moderat","Alt","Molt alt"],P5],
+[2,"Amb quina freqüència mantens uns horaris relativament regulars per dormir, menjar i fer les teves activitats habituals?",["Sempre","Sovint","De vegades","Rarament","Mai"],P5],
+[3,"Has pres antibiòtics durant els últims 4 mesos?",["No","Sí, fa més de 2 mesos","Sí, fa entre 1 i 2 mesos","Sí, durant l'últim mes"],[4,3,2,0]],
+[3,"Amb quina freqüència consumeixes aliments ultraprocessats?",["Gairebé mai","Ocasionalment","Sovint","Molt sovint"],[3,2,1,0]],
+[3,"Amb quina freqüència consumeixes alcohol?",["Mai","Ocasionalment","Sovint","Molt sovint"],[3,2,1,0]],
+[4,"Com valores actualment la teva salut digestiva?",["Molt bona","Bona","Acceptable","Dolenta","Molt dolenta"],P5],
+[4,"Fins a quin punt consideres que els teus hàbits actuals afavoreixen la teva salut intestinal?",["Molt","Bastant","Moderadament","Poc","Gens"],P5]
+];
+const TYPES=["Diabetis tipus 1","Celiaquia","Tiroïditis de Hashimoto","Malaltia de Graves","Artritis reumatoide","Lupus","Esclerosi múltiple","Psoriasi","Malaltia de Crohn","Colitis ulcerosa","Vitíligen","Una altra malaltia autoimmune"];
+
+const $=id=>document.getElementById(id);
+const ans=Array(Q.length).fill(null);
+let sent=false, rid=(crypto.randomUUID?crypto.randomUUID():String(Date.now())+Math.random().toString(16).slice(2));
+
+// Construcció del qüestionari
+let h="",last=-1;
+Q.forEach((q,i)=>{
+  if(q[0]!==last){last=q[0];h+=`<div class="dim"><h2>${DIM[last][0]}</h2><small>${DIM[last][1]} punts</small></div>`}
+  h+=`<fieldset id="q${i}"><legend>${i+1}. ${q[1]}</legend><div class="opts" style="--n:${q[2].length}">`+
+     q[2].map((o,j)=>`<label><input type="radio" name="q${i}" value="${j}"><span>${o}</span></label>`).join("")+`</div></fieldset>`;
+});
+$("qs").innerHTML=h;
+$("types").innerHTML=TYPES.map(t=>`<label><input type="checkbox" value="${t}"> ${t}</label>`).join("");
+
+document.querySelectorAll("#qs input").forEach(r=>r.addEventListener("change",()=>{
+  const i=+r.name.slice(1);ans[i]=+r.value;$("q"+i).classList.remove("miss")}));
+document.querySelectorAll("input[name=dis]").forEach(r=>r.addEventListener("change",()=>
+  $("ftype").classList.toggle("hidden",r.value!=="Sí"||!r.checked)));
+
+function show(n){
+  for(let i=1;i<=4;i++)$("s"+i).classList.toggle("hidden",i!==n);
+  [...$("steps").children].forEach((s,i)=>s.classList.toggle("on",i<n));
+  window.scrollTo({top:0,behavior:"smooth"});
+}
+show(1);
+$("go1").onclick=()=>show(2);
+$("b2").onclick=()=>show(1);
+$("b3").onclick=()=>show(2);
+
+$("n2").onclick=()=>{
+  const miss=ans.map((a,i)=>a===null?i:-1).filter(i=>i>=0);
+  document.querySelectorAll("#qs fieldset").forEach((f,i)=>f.classList.toggle("miss",ans[i]===null));
+  if(miss.length){
+    $("e2").textContent=`Et falta respondre ${miss.length===1?"una pregunta":miss.length+" preguntes"}. Les marquem en vermell.`;
+    $("q"+miss[0]).scrollIntoView({behavior:"smooth",block:"center"});return}
+  $("e2").textContent="";show(3);
+};
+
+function pts(){return ans.map((a,i)=>Q[i][3][a])}
+function sums(p){const s=[0,0,0,0,0];p.forEach((v,i)=>s[Q[i][0]]+=v);return s}
+
+$("n3").onclick=()=>{
+  const age=+$("age").value, sex=document.querySelector("input[name=sex]:checked"), dis=document.querySelector("input[name=dis]:checked");
+  const types=[...document.querySelectorAll("#types input:checked")].map(c=>c.value);
+  let e="";
+  if(!(age>=10&&age<=110&&Number.isInteger(age)))e="Introdueix una edat vàlida (nombre enter entre 10 i 110).";
+  else if(!sex)e="Indica el teu sexe o escull «Prefereixo no dir-ho».";
+  else if(!dis)e="Indica si tens una malaltia autoimmune diagnosticada.";
+  else if(dis.value==="Sí"&&!types.length)e="Marca quina malaltia autoimmune tens.";
+  $("e3").textContent=e;if(e)return;
+  const p=pts();
+  if(!sent&&ENDPOINT){
+    sent=true;
+    fetch(ENDPOINT,{method:"POST",mode:"no-cors",headers:{"Content-Type":"text/plain;charset=utf-8"},
+      body:JSON.stringify({id:rid,edat:age,sexe:sex.value,malaltia:dis.value,tipus:dis.value==="Sí"?types.join("; "):"",punts:p})}).catch(()=>{});
+  }
+  render(p);show(4);
+};
+
+// Recomanacions (textos propis, elaborats per al Treball de Recerca)
+const TIP={
+0:["Escolta el teu cos","Durant dues setmanes, apunta en una llibreta quan apareixen la inflor o les molèsties i què havies menjat o com et sentias aquell dia. Així podràs detectar patrons i explicar-ho millor al teu metge o a la teva metgessa si els símptomes continuen."],
+"1a":["Posa més vegetals al plat","Intenta que a cada àpat principal hi hagi fruita o verdura: una peça de fruita a l'esmorzar o de postres i una guarnició de verdura al dinar i al sopar. És una manera senzilla d'afegir fibra, que alimenta les bactèries intestinals."],
+"1b":["Fes lloc als llegums","Prova de menjar llegums dues o tres vegades per setmana: una crema de llenties, una amanida de cigrons o un plat de mongetes. Si no hi estàs acostumat, comença amb porcions petites perquè l'intestí s'hi adapti."],
+"1c":["Canvia a poc a poc cap als integrals","Substitueix un aliment refinat per la versió integral, com el pa o la pasta, i afegeix un grapat de fruits secs o llavors a l'iogurt o a l'amanida. No cal fer-ho tot de cop: un canvi cada setmana ja suma."],
+"1d":["Juga amb la varietat vegetal","Marca't el repte de provar un vegetal, una fruita o un cereal nou cada setmana. Com més varietat de plantes, més tipus de fibra arriben a l'intestí."],
+"2a":["Mou-te una mica més cada setmana","Busca moments per caminar, anar en bicicleta o pujar escales fins a arribar a 30 minuts d'activitat uns quants dies per setmana. Si ara fas poc, comença per un dia més i ves-ho ampliant."],
+"2b":["Cuida el son i rebaixa l'estrès","Intenta anar a dormir sense pantalles l'última mitja hora i fes petites pauses durant el dia, com una passejada o uns minuts de respiració pausada. L'intestí i el cervell es comuniquen constantment, i el descans hi influeix."],
+"2c":["Ordena els teus horaris","Mantenir hores semblants per dormir i menjar cada dia ajuda a crear una rutina estable. Comença fixant una hora de llevar-te i una hora per als àpats principals."],
+"3a":["Tingues en compte els antibiòtics","Els antibiòtics només s'han de prendre amb recepta mèdica i cal acabar el tractament tal com t'indiquin. Si n'has pres fa poc, pots donar suport a l'intestí amb una dieta rica en fibra i variada."],
+"3b":["Cuina més i llegeix les etiquetes","Els aliments ultraprocessats solen portar llargues llistes d'ingredients. Cuinar a casa uns quants àpats més per setmana, amb aliments frescos, és una manera pràctica de reduir-ne el consum."],
+"3c":["Redueix el consum d'alcohol","Pots anar-lo espaiant i substituir-lo per aigua amb gas, infusions o begudes sense alcohol en les ocasions socials. Menys alcohol és un petit pas que també beneficia el conjunt dels teus hàbits."],
+4:["Fes visibles els teus hàbits","Escull un únic hàbit que vulguis millorar aquest mes i apunta cada dia si l'has complert. Veure els progressos ajuda a percebre que els teus hàbits afavoreixen la teva salut intestinal."]
+};
+function tipKey(d,w){
+  if(d===1)return w<=6?"1a":w===7?"1b":w<=9?"1c":"1d";
+  if(d===2)return w===11?"2a":w<=13?"2b":"2c";
+  if(d===3)return w===15?"3a":w===16?"3b":"3c";
+  return d;
+}
+// Icones: intestí, poma, pols (activitat), escut (protecció) i cara somrient
+const ICON=["M5 6h12a3 3 0 010 6H7a3 3 0 000 6h12","M12 8c-3-2-7 0-7 5 0 4 3 8 5 8 1 0 1-1 2-1s1 1 2 1c2 0 5-4 5-8 0-5-4-7-7-5zM12 8c0-2 1-4 3-5","M3 12h4l3-7 4 14 3-7h4","M12 3l8 3v6c0 5-3.5 8-8 9-4.5-1-8-4-8-9V6z","M12 3a9 9 0 100 18 9 9 0 000-18zM8 14c1 2 2.5 3 4 3s3-1 4-3M9 9.5v.5M15 9.5v.5"];
+
+// Perfils orientatius (proposta pròpia, no forma part de l'ISI original)
+const PERFILS=[
+[80,"Perfil molt favorable","Els teus hàbits i el teu benestar digestiu apunten cap a una salut intestinal molt ben cuidada. Mantén el que ja fas.","M8 14.5c1 3 7 3 8 0z","#1f8a70"],
+[60,"Perfil favorable","Tens una bona base. Hi ha alguns aspectes que pots reforçar per acostar-te encara més a una salut intestinal òptima.","M8 14c1.2 2.2 6.8 2.2 8 0","#2f7fc1"],
+[40,"Perfil intermedi","Alguns aspectes funcionen bé i d'altres tenen marge de millora. Petits canvis constants poden marcar la diferència.","M8.5 15.5h7","#c58a1a"],
+[0,"Perfil amb marge de millora","Ara mateix hi ha diversos aspectes que et poden ajudar a millorar. No et preocupis: comença per un sol canvi i ves-hi pas a pas.","M8 16.5c1.2-2.4 6.8-2.4 8 0","#8a5ba6"]
+];
+function perfil(t){return PERFILS.find(p=>t>=p[0])}
+
+function render(p){
+  const s=sums(p), tot=s.reduce((a,b)=>a+b,0);
+  $("tot").textContent=tot;$("ring").style.setProperty("--p",tot);
+  const pf=perfil(tot);
+  $("profile").innerHTML=`<svg viewBox="0 0 24 24" role="img" aria-label="${pf[1]}"><circle cx="12" cy="12" r="11" fill="${pf[4]}"/><g stroke="#fff" stroke-width="1.6" fill="none" stroke-linecap="round" stroke-linejoin="round"><path d="M9 9.5v.5M15 9.5v.5"/><path d="${pf[3]}"/></g></svg><div><h2>${pf[1]}</h2><p>${pf[2]}</p><small>Perfil orientatiu segons la teva puntuació total. No és un diagnòstic.</small></div>`;
+  $("bars").innerHTML=DIM.map((d,i)=>`<div class="bar"><div><span>${d[0]}</span><span>${s[i]} / ${d[1]}</span></div><div class="track"><i style="width:${s[i]/d[1]*100}%"></i></div></div>`).join("");
+  const order=DIM.map((d,i)=>[i,s[i]/d[1]]).sort((a,b)=>a[1]-b[1]||a[0]-b[0]).slice(0,3);
+  $("recs").innerHTML=order.map(([d],k)=>{
+    let w=-1,best=2;
+    Q.forEach((q,i)=>{if(q[0]===d){const r=p[i]/Math.max(...q[3]);if(r<best){best=r;w=i}}});
+    const t=TIP[tipKey(d,w)];
+    return `<div class="rec"><svg viewBox="0 0 48 48" aria-hidden="true"><circle cx="24" cy="24" r="23" fill="#d9ecfa"/><path d="${ICON[d]}" transform="translate(10 10) scale(1.17)" stroke="#10325a" stroke-width="1.7" fill="none" stroke-linecap="round" stroke-linejoin="round"/></svg><div><h3>${t[0]}</h3><p>${t[1]}</p></div></div>`}).join("");
+}
+</script>
+</body>
+</html>
